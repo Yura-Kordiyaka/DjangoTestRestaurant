@@ -103,6 +103,20 @@ services:
       - redis-cache
       - celery-worker
 
+  tests:
+    container_name: tests
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    env_file:
+      - .env
+    command: >
+      sh -c "python manage.py test"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 volumes:
   cache:
   model_data:
