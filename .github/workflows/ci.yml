@@ -15,9 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Start database
-        run: docker-compose up -d postgres
+        run: |
+          cd app
+          docker-compose up -d postgres
       - name: Run tests
-        run: docker-compose run --rm tests
+        run: |
+          cd app
+          docker-compose run --rm tests
       - name: Check out code
         uses: actions/checkout@v2
 
